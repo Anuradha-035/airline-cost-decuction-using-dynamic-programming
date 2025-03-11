@@ -1,49 +1,61 @@
-# airline-cost-decuction-using-dynamic-programming
-#include <stdio.h>
-#include <stdlib.h>
+# airline-cost-Detection-using-dynamic-programming
+# Online Detection System
 
-int demandFunction(int price, int daysLeft) {
-    return (100 - price) / (daysLeft + 1);
-}
+## Overview
+The Online Detection System is designed to predict airline ticket price trends based on factors such as the number of available seats and days remaining until departure. The system uses a demand function to adjust ticket prices dynamically, simulating real-world pricing strategies.
 
-void predictPrices(int seats, int days, int basePrice) {
-    int prices[days];
+## Features
+- Predicts daily ticket prices until departure.
+- Adjusts prices based on demand and seat availability.
+- Ensures price limits within a reasonable range.
+- Uses randomness to simulate market fluctuations.
 
-    prices[days - 1] = basePrice;
+## Requirements
+- C Compiler (e.g., GCC)
+- Standard C Libraries (stdio.h, stdlib.h)
 
-    for (int t = days - 2; t >= 0; t--) {
-        int demand = demandFunction(prices[t + 1], t);
+## Installation
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-repo/online-detection-system.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd online-detection-system
+   ```
+3. Compile the program:
+   ```sh
+   gcc -o predict_prices predict_prices.c
+   ```
 
-        if (seats > demand) {
-            prices[t] = prices[t + 1] + (rand() % 10 - 5);
-        } else {
-            prices[t] = prices[t + 1] - (rand() % 10 + 5);
-        }
+## Usage
+1. Run the program:
+   ```sh
+   ./predict_prices
+   ```
+2. Enter the required inputs when prompted:
+   - Total seats on the flight
+   - Number of days until departure
+   - Base ticket price
+3. The system will output predicted prices for each day leading up to departure.
 
-        if (prices[t] < basePrice / 2) prices[t] = basePrice / 2;
-        if (prices[t] > basePrice * 1.5) prices[t] = basePrice * 1.5;
+## Example Output
+```
+Enter total seats on the flight: 50
+Enter number of days until departure: 10
+Enter base ticket price: 100
 
-        seats -= demand;
-        if (seats < 0) seats = 0;
-    }
+Predicted Prices Per Day Until Departure:
+Day 1: $95
+Day 2: $97
+Day 3: $102
+...
+Day 10: $100
+```
 
-    printf("\nPredicted Prices Per Day Until Departure:\n");
-    for (int t = 0; t < days; t++) {
-        printf("Day %d: $%d\n", t + 1, prices[t]);
-    }
-}
+## License
+This project is open-source and available under the MIT License.
 
-int main() {
-    int seats, days, basePrice;
+## Author
+Developed by [Your Name]
 
-    printf("Enter total seats on the flight: ");
-    scanf("%d", &seats);
-    printf("Enter number of days until departure: ");
-    scanf("%d", &days);
-    printf("Enter base ticket price: ");
-    scanf("%d", &basePrice);
-
-    predictPrices(seats, days, basePrice);
-
-    return 0;
-}
