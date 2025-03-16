@@ -1,5 +1,5 @@
 # airline-cost-Detection-using-dynamic-programming
-# Online Detection System
+
 
 ## Overview
 The Online Detection System is designed to predict airline ticket price trends based on factors such as the number of available seats and days remaining until departure. The system uses a demand function to adjust ticket prices dynamically, simulating real-world pricing strategies.
